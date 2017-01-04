@@ -1,0 +1,27 @@
+package org.tmr.jamm
+
+import org.tmr.jamm.Data
+
+global java.io.PrintStream out
+
+rule "debug output" salience 10 when
+    d : Data( )
+then
+    out.println( d.getName() + ": " +  d.getText() );
+end
+
+rule "respond to ping" when
+    d : Data( text == "ping" )
+then
+    d.setName("RESULT");
+    d.setText("pong!");
+    update(d);
+end
+
+rule "respond to foo" when
+    d : Data( text == "foo" )
+then
+    d.setName("RESULT");
+    d.setText("bar!");
+    update(d);
+end
